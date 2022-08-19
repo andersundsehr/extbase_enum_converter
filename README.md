@@ -11,6 +11,9 @@ Adds the EnumConverter into TYPO3 11.
 >
 > The EnumConverter is automatically used if the target type is an enum.
 
+## Install
+
+`composer req andersundsehr/extbase_enum_converter`
 
 ## Description
 

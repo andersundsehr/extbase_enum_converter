@@ -1,0 +1,27 @@
+{
+  "name": "andersundsehr/extbase_enum_converter",
+  "type": "typo3-cms-extension",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-only",
+  "autoload": {
+    "psr-4": {
+      "AUS\\ExtbaseEnumConverter\\": "Classes"
+    }
+  },
+  "require": {
+    "typo3/cms-core": "^11",
+    "php": "~8.1"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "extbase_enum_converter"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/cms-composer-installers": false,
+      "typo3/class-alias-loader": false
+    }
+  }
+}

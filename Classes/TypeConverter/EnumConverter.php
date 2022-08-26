@@ -54,26 +54,25 @@ class EnumConverter implements TypeConverterInterface
      * @param PropertyMappingConfigurationInterface|null $configuration
      * @return mixed
      */
-    public function convertFrom($source, string $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null): mixed
+    public function convertFrom($source, string $targetType, array $convertedChildProperties = [], PropertyMappingConfigurationInterface $configuration = null): ?UnitEnum
     {
         return $this->getEnumElement($source, $targetType);
     }
 
-    private function getEnumElement(mixed $source, string $targetType): mixed
+    private function getEnumElement(float|int|string $source, string $targetType): ?\UnitEnum
     {
+        if (!enum_exists($targetType)) {
+            throw new \InvalidTargetException('TargetType "' . $targetType . '" is not an enum.', 1660834545);
+        }
         foreach ($targetType::cases() as $enum) {
-            if ($enum->name == $source) {
+            if (property_exists($enum, 'value') && $enum->value == $source) {
                 return $enum;
             }
         }
         foreach ($targetType::cases() as $enum) {
-            if (!property_exists($enum, 'value')) {
-                continue;
+            if ($enum->name == $source) {
+                return $enum;
             }
-            if ($enum->value != $source) {
-                continue;
-            }
-            return $enum;
         }
         return null;
     }

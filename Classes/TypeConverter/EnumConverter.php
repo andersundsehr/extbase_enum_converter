@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace AUS\ExtbaseEnumConverter\TypeConverter;
 
+use TYPO3\CMS\Extbase\Property\Exception\InvalidTargetException;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Extbase\Property\TypeConverterInterface;
+use UnitEnum;
 
 class EnumConverter implements TypeConverterInterface
 {
@@ -59,10 +61,10 @@ class EnumConverter implements TypeConverterInterface
         return $this->getEnumElement($source, $targetType);
     }
 
-    private function getEnumElement(float|int|string $source, string $targetType): ?\UnitEnum
+    private function getEnumElement(float|int|string $source, string $targetType): ?UnitEnum
     {
         if (!enum_exists($targetType)) {
-            throw new \InvalidTargetException('TargetType "' . $targetType . '" is not an enum.', 1660834545);
+            throw new InvalidTargetException('TargetType "' . $targetType . '" is not an enum.', 1660834545);
         }
         foreach ($targetType::cases() as $enum) {
             if (property_exists($enum, 'value') && $enum->value == $source) {
